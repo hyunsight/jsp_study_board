@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.BoardDAO;
 import DTO.Board;
 
+
+//"/"로 작성 시, 웹 어플리케이션에서 발생하는 모든 request는 전부 BoardController로 온다.
 @WebServlet("/")
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +43,7 @@ public class BoardController extends HttpServlet {
 		
 		switch (command) {
 			case "/index": site = getList(request); break; //index.jsp로 이동
-			case "/view": break; //view.jsp로 이동
+			case "/view": site = getView(request); break; //view.jsp로 이동
 			case "/write": break; //write.jsp로 이동
 			case "/insert": break;
 			case "/edit": break; //edit.jsp로 이동
@@ -51,7 +53,6 @@ public class BoardController extends HttpServlet {
 		
 		ctx.getRequestDispatcher("/" + site).forward(request, response);
 	}
-	
 	
 	//BoardDAO 객체의 getList 메소드 실행: 게시물 전체 목록을 가져온 후 request 객체에 넣어준다.
 	public String getList(HttpServletRequest request) {
@@ -66,4 +67,22 @@ public class BoardController extends HttpServlet {
 		
 		return "index.jsp";
 	}
+
+
+	//게시물의 상세 페이지를 가지고 와서 request 객체에 넣어준다.
+	public String getView(HttpServletRequest request) {
+		//쿼리 파라미터에 있는 board_no 값을 가져온다.
+		int board_no = Integer.parseInt(request.getParameter("board_no"));
+		
+		try {
+			dao.updateViews(board_no);
+			Board b = dao.getView(board_no);
+			request.setAttribute("board", b);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "view.jsp";
+	}
+
 }

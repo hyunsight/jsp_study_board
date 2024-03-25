@@ -52,6 +52,7 @@ public class BoardDAO {
 		try (conn; pstmt; rs) {
 			while(rs.next()) { //DB에서 한 행씩 가져옴
 				Board b = new Board();
+				
 				b.setBoard_no(rs.getInt("board_no"));
 				b.setTitle(rs.getString("title"));
 				b.setUser_id(rs.getString("user_id"));
@@ -64,4 +65,44 @@ public class BoardDAO {
 			return boardList;
 		}
 	}
+
+	//게시판 내용 가져오는 메소드
+	public Board getView(int board_no) throws Exception {
+		Connection conn = open();
+		Board b = new Board();
+		
+		String sql = "SELECT board_no, title, USER_id, to_char(reg_date, 'yyyy.mm.dd') REG_DATE, views, CONTENT, img FROM board WHERE BOARD_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, board_no); //물음표에 들어갈 값을 반드시 먼저 지정, board_no은 int 타입이므로
+		ResultSet rs = pstmt.executeQuery(); //쿼리 실행
+		
+		try(conn; pstmt; rs) {
+			while(rs.next()) {
+				b.setBoard_no(rs.getInt("board_no"));
+				b.setTitle(rs.getString("title"));
+				b.setUser_id(rs.getString("user_id"));
+				b.setReg_date(rs.getString("reg_date"));
+				b.setViews(rs.getInt("views"));
+				b.setContent(rs.getNString("content"));
+				b.setImg(rs.getString("img"));
+			}
+		} 
+		
+		return b;	
+	}
+
+	
+	//조회수 증가 메소드
+	public void updateViews(int board_no) throws Exception {
+		Connection conn = open();
+		
+		String sql = "UPDATE board SET views = (views + 1) WHERE BOARD_NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, board_no);
+		
+		try(conn; pstmt) {
+			pstmt.executeUpdate(); //insert, update, delete 문에서 사용
+		}
+	}
+	
 }
