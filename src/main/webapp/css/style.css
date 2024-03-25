@@ -1,0 +1,126 @@
+@charset "UTF-8";
+
+/* 초기화 태그 */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 10px;
+}
+
+ul, li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit; /* inherit: 부모 태그의 컬러를 상속받아서 사용 */
+	cursor: pointer;
+}
+
+
+/* 공통 jsp */
+
+.bt_wrap {
+	margin-top: 30px;
+	text-align: center;
+	font-size: 0;
+}
+
+.bt_wrap a {
+	display: inline-block;
+	min-width: 80px; /* 80px보다 작아지지 X */
+	margin-left: 10px;
+	padding: 10px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	font-size: 1.4rem; /* rem: 루트 태그(html)의 1.4배, em: 부모 태그의 1.4배 */
+	text-align: center;
+}
+
+.bt_wrap a:hover {
+	text-decoration: underline;
+}
+
+.bt_wrap a.on { /* a.on: a 태그면서 on 클래스를 가진 */
+	background: #000;
+	color: #fff;
+}
+
+
+/* index.jsp */
+.wrap {
+	width: 1000px;
+	margin: 0 auto; /* 가운데 정렬(width 필수) */
+}
+
+.board_list {
+	width: 100%;
+	border-top: 1px solid #444444;
+	border-collapse: collapse; /* border 직선으로 만듦 */
+	font-size: 1.5rem;
+}
+
+.board_list caption {
+	padding: 30px;
+}
+
+.board_list th, .board_list td {
+	border-bottom: 1px solid #444444;
+	padding: 10px;
+	text-align: center;
+}
+
+.board_list td.title > a:hover {
+	text-decoration: underline;
+}
+
+.board_page {
+	margin-top: 30px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+.board_page a {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	box-sizing: border-box;
+	line-height: 32px; /* height와 같은 크기로 지정: 수직상에서 가운데 정렬 */
+}
+
+.board_page a:hover {
+	text-decoration: underline;
+}
+
+.board_page a.bt {
+	font-size: 1.2rem;
+	letter-spacing: -1px;
+}
+
+.board_page a.num {
+	font-size: 1.4rem;
+}
+
+.board_page a.num.on {
+	border-color: #000;
+	background: #000;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
