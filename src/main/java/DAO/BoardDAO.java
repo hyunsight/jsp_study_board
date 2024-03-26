@@ -33,7 +33,7 @@ public class BoardDAO {
 		Connection conn = open(); //DB 커넥션 열기
 		ArrayList<Board> boardList = new ArrayList<>(); //Board 객체를 저장할 ArrayList
 		
-		String sql = "SELECT board_no, title, USER_id, to_char(reg_date, 'yyyy.mm.dd') REG_DATE, views FROM board"; //쿼리문, 세미콜론은 제거 필요
+		String sql = "SELECT board_no, title, USER_id, to_char(reg_date, 'yyyy.mm.dd') REG_DATE, views FROM board order by board_no"; //쿼리문, 세미콜론은 제거 필요
 		PreparedStatement pstmt = conn.prepareStatement(sql); //쿼리문 등록
 		ResultSet rs = pstmt.executeQuery(); //쿼리문 실행 -> 데이터베이스 결과 저장		
 		
@@ -105,4 +105,57 @@ public class BoardDAO {
 		}
 	}
 	
+	//게시판 글등록 메소드
+	public void insertBoard(Board b) throws Exception {
+		Connection conn = open();
+		String sql = "insert into board values(board_seq.nextval, ?, ?, ?, sysdate, 0, ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		try(conn; pstmt) {
+			pstmt.setString(1, b.getUser_id());
+			pstmt.setString(2, b.getTitle());
+			pstmt.setString(3, b.getContent());
+			pstmt.setString(4, b.getImg());
+			pstmt.executeUpdate();
+		}	
+	}
+	
+	//게시판 글수정 메소드
+	public void updateBoard(Board b) throws Exception {
+		Connection conn = open();
+		String sql = "UPDATE board SET title = ?, USER_ID = ?, content = ?, img = ? WHERE board_no = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		try(conn; pstmt) {
+			pstmt.setString(1, b.getTitle());
+			pstmt.setString(2, b.getUser_id());
+			pstmt.setString(3, b.getContent());
+			pstmt.setString(4, b.getImg());
+			pstmt.setInt(5, b.getBoard_no());
+			
+			//수정된 내용이 없을 경우
+			if(pstmt.executeUpdate() != 1) {
+				throw new Exception("수정된 글이 없습니다.");
+			}
+		}	
+				
+	}
+	
+	//게시판 글삭제 메소드
+	public void deleteBoard(int board_no) throws Exception {
+		Connection conn = open();
+		String sql = "DELETE FROM board WHERE board_no = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		try(conn; pstmt) {
+			pstmt.setInt(1,  board_no);
+			
+			if(pstmt.executeUpdate() != 1) {
+				throw new Exception("삭제된 글이 없습니다.");
+			}
+		}
+	}
+
+	
+
 }

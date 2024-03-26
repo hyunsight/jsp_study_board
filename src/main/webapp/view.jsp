@@ -35,17 +35,25 @@
 						<dd>${board.views}</dd>
 					</dl>
 					<dl style="position: absolute; right: 0;">
-						<dt><a>삭제하기</a></dt>
+						<dt><a onclick="chkDelete(${board.board_no}); return false;">삭제하기</a></dt>
 					</dl>
 				</div>
-				<div class="cont">${board.content}</div>
-				<div class="cont"><img src="${board.img}" alt="업로드 이미지"></div>
+				<!-- 
+				white-space: 공백, 줄바꿈 규칙 적용 (작성한 본문 내용에 대해 줄바꿈 적용)
+				- 속성: pre-wrap(작성한 그대로 출력), nowrap(텍스트 일자로 출력), normal 등
+				- white-space:pre-wrap: div 영역 안에서 감싸면서 줄바꿈, 공백 적용 
+				-->
+				<div class="cont" style="white-space:pre-wrap;">${board.content}</div>
+				<c:if test="${board.img != null}">
+					<div class="cont"><img src="${board.img}" alt="업로드 이미지"></div>
+				</c:if>			
 			</div>	
 			<div class="bt_wrap">
 				<a href="index" class="on">목록</a>
-				<a href="edit">수정</a>
+				<a href="edit?board_no=${board.board_no}">수정</a>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>

@@ -37,7 +37,7 @@
 			</tbody>
 		</table>
 		<div class="bt_wrap bt_list">
-			<a href="">글쓰기</a>
+			<a href="write">글쓰기</a>
 		</div>
 		<div class="board_page">
 			<a href="#" class="bt first">&lt;&lt;</a>
