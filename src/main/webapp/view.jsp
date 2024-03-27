@@ -54,6 +54,18 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		//request 객체에 error가 있을 경우 에러메세지 출력
+		<c:if test="${error != null}">
+			alert("${error}");		
+		</c:if>
+		
+		//쿼리스트링에 error가 있을 경우 에러메세지 출력
+		<c:if test="${param.error != null}">
+			alert("${param.error}");
+		</c:if>
+	</script>
 	<script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>

@@ -273,3 +273,94 @@ a {
 	- 보통 none으로 많이 함
 	*/
 }
+
+
+/* 반응형 관련 - 768 ~ 1000px */
+@media all and (max-width: 1000px) {
+	.wrap {
+		width: 100vw; /* 뷰포트의 크기에 맞춰서 width를 100%로 설정 */
+	}
+	
+	/* view.jsp, write.jsp 반응형 */
+	.board_wrap {
+		width: 100vw;
+	}
+}
+
+
+/* 반응형 관련 - 0 ~ 767px */
+@media all and (max-width: 767px) {
+	/* index.jsp 반응형 적용 */
+	.wrap {
+		width: 95vw; 
+		margin: 0 auto;
+	}
+	
+	.board_list th:nth-of-type(1), 
+	.board_list td:nth-of-type(1) {
+		display: none;
+	}
+	
+	.board_list th:nth-of-type(3), 
+	.board_list td:nth-of-type(3) {
+		display: none;
+	}
+
+	.board_list th:nth-of-type(4), 
+	.board_list td:nth-of-type(4) {
+		display: none;
+	}
+	
+	/* view.jsp, write.jsp 반응형 */
+	.board_wrap {
+		width: 100vw;
+	}
+	
+	.board_write .title dt {
+		width: 70px;
+	}
+	
+	.board_write .info dt {
+		width: 70px;
+		margin-bottom: 10px;
+	}
+	
+	.board_write .title input[type="text"] {
+		width: 100%;
+	}
+	
+	.board_write .info input[type="text"], 
+	.board_write .info input[type="password"] {
+		width: 80%;
+	}
+	
+	.board_write .info dl {
+		width: 100%;
+	}
+
+	.board_view .info dl {
+		padding: 0 10px;
+	}
+	
+	.board_view .info dl dt,
+	.board_view .info dl dd {
+		display: inline-block;
+		font-size: 1rem;
+	}
+	
+	.board_view .info dl:nth-of-type(1),
+	.board_view .info dl:nth-of-type(3) {
+		display: none;
+	}
+	
+	.board_view .info dl::before {
+		display: none;
+	}
+	
+	.board_view .cont img {
+		width: 100%;
+	}
+
+}
+
+

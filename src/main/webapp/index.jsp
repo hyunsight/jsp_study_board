@@ -51,5 +51,18 @@
 			<a href="#" class="bt last">&gt;&gt;</a>
 		</div>
 	</div>
+	
+	<script>
+		//request 객체에 error가 있을 경우 에러메세지 출력
+		//쿼리스트링에 error가 있을 경우 에러메시지 출력 (request 객체에 포함되므로)
+		<c:if test="${error != null}">
+			alert("${error}");		
+		</c:if>
+		
+		//쿼리스트링에 error가 있을 경우 에러메세지 출력
+		<c:if test="${param.error != null}">
+			alert("${param.error}");
+		</c:if>
+	</script>
 </body>
 </html>

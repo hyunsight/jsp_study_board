@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -91,6 +93,7 @@ public class BoardController extends HttpServlet {
 			request.setAttribute("boardList", list);
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("error", "게시물 목록을 정상적으로 가져오지 못했습니다.");;
 		}
 		
 		return "index.jsp";
@@ -108,6 +111,7 @@ public class BoardController extends HttpServlet {
 			request.setAttribute("board", b);
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("error", "게시글을 정상적으로 가져오지 못했습니다.");
 		}
 		
 		return "view.jsp";
@@ -157,6 +161,14 @@ public class BoardController extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			try {
+				//쿼리스트링의 한글깨짐을 방지하기 위해 UTF-8로 인코딩
+				String encodeName = URLEncoder.encode("게시물이 정상적으로 등록되지 않았습니다.", "UTF-8");
+				return "redirect:/index?error=" + encodeName;
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
 		return "redirect:/index"; //redirect는 데이터 가지지 않은 상태로 이동, 새로고침에 해당 (forward와 차이점)
@@ -195,6 +207,14 @@ public class BoardController extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			try {
+				//쿼리스트링의 한글깨짐을 방지하기 위해 UTF-8로 인코딩
+				String encodeName = URLEncoder.encode("게시물이 정상적으로 수정되지 않았습니다.", "UTF-8");
+				return "redirect:/view?board_no=" + b.getBoard_no() + "&error=" + encodeName;
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
 		return "redirect:/view?board_no=" + b.getBoard_no();
@@ -209,6 +229,14 @@ public class BoardController extends HttpServlet {
 			dao.deleteBoard(board_no);
 		} catch(Exception e) {
 			e.printStackTrace();
+			
+			try {
+				//쿼리스트링의 한글깨짐을 방지하기 위해 UTF-8로 인코딩
+				String encodeName = URLEncoder.encode("게시물이 정상적으로 삭제되니 않았습니다.", "UTF-8");
+				return "redirect:/index?error=" + encodeName;
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
 		return "redirect:/index";
